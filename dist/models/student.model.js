@@ -47,8 +47,21 @@ class Student {
                     method: 'PUT',
                     callback: this.updateStudent,
                     requireToken: true,
+                },
+                {
+                    route: '/delete-student/id/:id',
+                    method: 'DELETE',
+                    callback: this.deleteStudent,
+                    requireToken: true,
                 }
             ]];
+    }
+    deleteStudent(model) {
+        return (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            let carCtrl = model.controller;
+            let resp = yield carCtrl.remove(req, null, null);
+            res.json({ message: 'Success', resp });
+        });
     }
     updateStudent(model) {
         return (req, res, next) => __awaiter(this, void 0, void 0, function* () {

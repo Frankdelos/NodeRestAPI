@@ -40,11 +40,24 @@ export class Product {
             method: 'PUT',
             callback: this.updateProduct,
             requireToken: true,
+        },
+        {
+            route: '/delete-product/id/:id',
+            method: 'DELETE',
+            callback: this.deleteProduct,
+            requireToken: true,
         }
  
       ]];
     }
 
+    deleteProduct(model: any) {
+        return async (req: Request, res: Response, next: NextFunction) => {
+            let carCtrl = model.controller;
+            let resp = await carCtrl.remove(req, null, null);
+            res.json({ message: 'Success', resp });
+        }
+    }
     updateProduct(model: any) {
         return async (req: Request, res: Response, next: NextFunction) => {
             let carCtrl = model.controller;

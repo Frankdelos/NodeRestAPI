@@ -40,8 +40,22 @@ export class Student {
             method: 'PUT',
             callback: this.updateStudent,
             requireToken: true,
+        },
+        {
+            route: '/delete-student/id/:id',
+            method: 'DELETE',
+            callback: this.deleteStudent,
+            requireToken: true,
         }
       ]];
+    }
+
+    deleteStudent(model: any) {
+        return async (req: Request, res: Response, next: NextFunction) => {
+            let carCtrl = model.controller;
+            let resp = await carCtrl.remove(req, null, null);
+            res.json({ message: 'Success', resp });
+        }
     }
 
     updateStudent(model: any) {

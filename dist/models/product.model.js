@@ -47,8 +47,21 @@ class Product {
                     method: 'PUT',
                     callback: this.updateProduct,
                     requireToken: true,
+                },
+                {
+                    route: '/delete-product/id/:id',
+                    method: 'DELETE',
+                    callback: this.deleteProduct,
+                    requireToken: true,
                 }
             ]];
+    }
+    deleteProduct(model) {
+        return (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            let carCtrl = model.controller;
+            let resp = yield carCtrl.remove(req, null, null);
+            res.json({ message: 'Success', resp });
+        });
     }
     updateProduct(model) {
         return (req, res, next) => __awaiter(this, void 0, void 0, function* () {

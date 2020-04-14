@@ -41,11 +41,25 @@ export class Car {
             method: 'PUT',
             callback: this.updateCar,
             requireToken: true,
-        } 
+        },
+        {
+            route: '/delete-car/id/:id',
+            method: 'DELETE',
+            callback: this.deleteCar,
+            requireToken: true,
+        }
  
       ]];
     }
 
+    deleteCar(model: any) {
+        return async (req: Request, res: Response, next: NextFunction) => {
+            let carCtrl = model.controller;
+            let resp = await carCtrl.remove(req, null, null);
+            res.json({ message: 'Success', resp });
+        }
+    }
+ 
     updateCar(model: any) {
         return async (req: Request, res: Response, next: NextFunction) => {
             let carCtrl = model.controller;
@@ -53,7 +67,7 @@ export class Car {
             res.json({ message: 'Success', resp });
         }
     }
-     
+
     createCar(model: any) {
         return async (req: Request, res: Response, next: NextFunction) => {
             let carCtrl = model.controller;
