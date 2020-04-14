@@ -28,10 +28,23 @@ export class Student {
             method: 'POST',
             callback: this.getStudentById,
             requireToken: true,
+        },
+        {
+            route: '/create-student',
+            method: 'POST',
+            callback: this.createStudent,
+            requireToken: true,
         }
       ]];
     }
 
+    createStudent(model: any) {
+        return async (req: Request, res: Response, next: NextFunction) => {
+            let carCtrl = model.controller;
+            let resp = await carCtrl.insert(req, null, null);
+            res.json({ message: 'Success', resp });
+        }
+    }
     getAllStudents(model: any) {
         return async (req: Request, res: Response, next: NextFunction) => {
             req.body = {

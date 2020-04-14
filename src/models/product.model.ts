@@ -28,10 +28,23 @@ export class Product {
             method: 'POST',
             callback: this.getProductById,
             requireToken: true,
+        },
+        {
+            route: '/create-product',
+            method: 'POST',
+            callback: this.createProduct,
+            requireToken: true,
         }
       ]];
     }
 
+    createProduct(model: any) {
+        return async (req: Request, res: Response, next: NextFunction) => {
+            let carCtrl = model.controller;
+            let resp = await carCtrl.insert(req, null, null);
+            res.json({ message: 'Success', resp });
+        }
+    }
     getAllProducts(model: any) {
         return async (req: Request, res: Response, next: NextFunction) => {
             req.body = {

@@ -35,8 +35,21 @@ class Student {
                     method: 'POST',
                     callback: this.getStudentById,
                     requireToken: true,
+                },
+                {
+                    route: '/create-student',
+                    method: 'POST',
+                    callback: this.createStudent,
+                    requireToken: true,
                 }
             ]];
+    }
+    createStudent(model) {
+        return (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            let carCtrl = model.controller;
+            let resp = yield carCtrl.insert(req, null, null);
+            res.json({ message: 'Success', resp });
+        });
     }
     getAllStudents(model) {
         return (req, res, next) => __awaiter(this, void 0, void 0, function* () {

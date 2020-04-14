@@ -36,8 +36,21 @@ class Car {
                     method: 'POST',
                     callback: this.getCarById,
                     requireToken: true,
+                },
+                {
+                    route: '/create-car',
+                    method: 'POST',
+                    callback: this.createCar,
+                    requireToken: true,
                 }
             ]];
+    }
+    createCar(model) {
+        return (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            let carCtrl = model.controller;
+            let resp = yield carCtrl.insert(req, null, null);
+            res.json({ message: 'Success', resp });
+        });
     }
     getAllCars(model) {
         return (req, res, next) => __awaiter(this, void 0, void 0, function* () {

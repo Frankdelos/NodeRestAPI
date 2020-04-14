@@ -35,8 +35,21 @@ class Product {
                     method: 'POST',
                     callback: this.getProductById,
                     requireToken: true,
+                },
+                {
+                    route: '/create-product',
+                    method: 'POST',
+                    callback: this.createProduct,
+                    requireToken: true,
                 }
             ]];
+    }
+    createProduct(model) {
+        return (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            let carCtrl = model.controller;
+            let resp = yield carCtrl.insert(req, null, null);
+            res.json({ message: 'Success', resp });
+        });
     }
     getAllProducts(model) {
         return (req, res, next) => __awaiter(this, void 0, void 0, function* () {
