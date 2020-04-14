@@ -8,14 +8,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-class Car {
+class Product {
     constructor(norm) {
         this.model = [{
                 id: { type: Number, key: 'primary' },
-                make: { type: String, maxlength: 24 },
-                model: { type: String, maxlength: 24 },
-                year: { type: String, maxlength: 24 },
-                mileage: { type: String, maxlength: 24 },
+                name: { type: String, maxlength: 24 },
+                price: { type: String, maxlength: 24 },
+                department: { type: String, maxlength: 24 },
                 user_id: {
                     type: Number,
                     key: 'foreign',
@@ -26,20 +25,20 @@ class Car {
             }, 'A table to store exam model',
             [
                 {
-                    route: '/get-all-cars',
+                    route: '/get-all-products',
                     method: 'POST',
-                    callback: this.getAllCars,
+                    callback: this.getAllProducts,
                     requireToken: true,
                 },
                 {
-                    route: '/get-car-by-id/:id',
+                    route: '/get-product-by-id/:id',
                     method: 'POST',
-                    callback: this.getCarById,
+                    callback: this.getProductById,
                     requireToken: true,
                 }
             ]];
     }
-    getAllCars(model) {
+    getAllProducts(model) {
         return (req, res, next) => __awaiter(this, void 0, void 0, function* () {
             req.body = {
                 get: ['*']
@@ -49,7 +48,7 @@ class Car {
             res.json({ message: 'Success', resp });
         });
     }
-    getCarById(model) {
+    getProductById(model) {
         return (req, res, next) => __awaiter(this, void 0, void 0, function* () {
             req.body = {
                 get: ['*'],
@@ -69,4 +68,4 @@ class Car {
         return this._model;
     }
 }
-exports.Car = Car;
+exports.Product = Product;

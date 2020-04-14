@@ -1,14 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
 
-export class Car {
+export class Product {
     _model: any;
     constructor(norm: any) {
       this.model = [{
         id: { type: Number, key: 'primary' },
-        make: { type: String, maxlength: 24 },
-        model: { type: String, maxlength: 24 },
-        year: { type: String, maxlength: 24 },
-        mileage: { type: String, maxlength: 24 },
+        name: { type: String, maxlength: 24 },
+        price: { type: String, maxlength: 24 },
+        department: { type: String, maxlength: 24 },
         user_id: {
           type: Number,
           key: 'foreign',
@@ -19,21 +18,21 @@ export class Car {
       }, 'A table to store exam model', 
       [
         {
-            route: '/get-all-cars',
+            route: '/get-all-products',
             method: 'POST',
-            callback: this.getAllCars,
+            callback: this.getAllProducts,
             requireToken: true,
         },
         {
-            route: '/get-car-by-id/:id',
+            route: '/get-product-by-id/:id',
             method: 'POST',
-            callback: this.getCarById,
+            callback: this.getProductById,
             requireToken: true,
         }
       ]];
     }
 
-    getAllCars(model: any) {
+    getAllProducts(model: any) {
         return async (req: Request, res: Response, next: NextFunction) => {
             req.body = {
                 get: ['*']
@@ -44,7 +43,7 @@ export class Car {
         }
     }
 
-    getCarById(model: any) {
+    getProductById(model: any) {
         return async (req: Request, res: Response, next: NextFunction) => {
             req.body = {
                 get: ['*'],

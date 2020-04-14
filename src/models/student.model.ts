@@ -1,14 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
 
-export class Car {
+export class Student {
     _model: any;
     constructor(norm: any) {
       this.model = [{
         id: { type: Number, key: 'primary' },
-        make: { type: String, maxlength: 24 },
-        model: { type: String, maxlength: 24 },
-        year: { type: String, maxlength: 24 },
-        mileage: { type: String, maxlength: 24 },
+        name: { type: String, maxlength: 24 },
+        age: { type: String, maxlength: 24 },
+        major: { type: String, maxlength: 24 },
         user_id: {
           type: Number,
           key: 'foreign',
@@ -19,21 +18,21 @@ export class Car {
       }, 'A table to store exam model', 
       [
         {
-            route: '/get-all-cars',
+            route: '/get-all-students',
             method: 'POST',
-            callback: this.getAllCars,
+            callback: this.getAllStudents,
             requireToken: true,
         },
         {
-            route: '/get-car-by-id/:id',
+            route: '/get-student-by-id/:id',
             method: 'POST',
-            callback: this.getCarById,
+            callback: this.getStudentById,
             requireToken: true,
         }
       ]];
     }
 
-    getAllCars(model: any) {
+    getAllStudents(model: any) {
         return async (req: Request, res: Response, next: NextFunction) => {
             req.body = {
                 get: ['*']
@@ -44,7 +43,7 @@ export class Car {
         }
     }
 
-    getCarById(model: any) {
+    getStudentById(model: any) {
         return async (req: Request, res: Response, next: NextFunction) => {
             req.body = {
                 get: ['*'],
