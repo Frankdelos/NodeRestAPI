@@ -42,8 +42,21 @@ class Car {
                     method: 'POST',
                     callback: this.createCar,
                     requireToken: true,
+                },
+                {
+                    route: '/update-car/id/:id',
+                    method: 'PUT',
+                    callback: this.updateCar,
+                    requireToken: true,
                 }
             ]];
+    }
+    updateCar(model) {
+        return (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            let carCtrl = model.controller;
+            let resp = yield carCtrl.update(req, null, null);
+            res.json({ message: 'Success', resp });
+        });
     }
     createCar(model) {
         return (req, res, next) => __awaiter(this, void 0, void 0, function* () {

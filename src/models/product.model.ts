@@ -34,8 +34,23 @@ export class Product {
             method: 'POST',
             callback: this.createProduct,
             requireToken: true,
+        },
+        {
+            route: '/update-product/id/:id',
+            method: 'PUT',
+            callback: this.updateProduct,
+            requireToken: true,
         }
+ 
       ]];
+    }
+
+    updateProduct(model: any) {
+        return async (req: Request, res: Response, next: NextFunction) => {
+            let carCtrl = model.controller;
+            let resp = await carCtrl.update(req, null, null);
+            res.json({ message: 'Success', resp });
+        }
     }
 
     createProduct(model: any) {

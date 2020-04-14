@@ -41,8 +41,21 @@ class Student {
                     method: 'POST',
                     callback: this.createStudent,
                     requireToken: true,
+                },
+                {
+                    route: '/update-student/id/:id',
+                    method: 'PUT',
+                    callback: this.updateStudent,
+                    requireToken: true,
                 }
             ]];
+    }
+    updateStudent(model) {
+        return (req, res, next) => __awaiter(this, void 0, void 0, function* () {
+            let carCtrl = model.controller;
+            let resp = yield carCtrl.update(req, null, null);
+            res.json({ message: 'Success', resp });
+        });
     }
     createStudent(model) {
         return (req, res, next) => __awaiter(this, void 0, void 0, function* () {

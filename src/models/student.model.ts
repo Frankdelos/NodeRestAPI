@@ -34,10 +34,23 @@ export class Student {
             method: 'POST',
             callback: this.createStudent,
             requireToken: true,
+        },
+        {
+            route: '/update-student/id/:id',
+            method: 'PUT',
+            callback: this.updateStudent,
+            requireToken: true,
         }
       ]];
     }
 
+    updateStudent(model: any) {
+        return async (req: Request, res: Response, next: NextFunction) => {
+            let carCtrl = model.controller;
+            let resp = await carCtrl.update(req, null, null);
+            res.json({ message: 'Success', resp });
+        }
+    }
     createStudent(model: any) {
         return async (req: Request, res: Response, next: NextFunction) => {
             let carCtrl = model.controller;
